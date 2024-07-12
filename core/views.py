@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from .models import Product
+from costumerapp.models import Costumer
 
 # Create your views here.
 def homepage(request):
@@ -19,11 +20,19 @@ def product_detail(request, id):
     # Увеличение просмотра
     product_object.views_qty += 1
     
-    # Уникальный просмотры
-    user = request.user
-    costumer = user.costumer
-    product_object.costumer_views.add(costumer)
-    # product_object.costumer_views.add(request.user.costumer)
+    # Уникальные просмотры
+    if request.user.is_authenticated:
+        user = request.user
+        if not Costumer.objects.filter(user=user).exists():
+            costumer = Costumer.objects.create(
+                name=user.username,
+                age=0,
+                gender='-',
+                user=user,
+            )
+        costumer = user.costumer
+        product_object.costumer_views.add(costumer)
+        # product_object.costumer_views.add(request.user.costumer)
     
     # Сохранение в БД
     product_object.save()
