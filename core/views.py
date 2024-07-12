@@ -10,3 +10,11 @@ def homepage(request):
     
     # return HttpResponse("Hello Django!")
     return render(request, 'index.html', context)
+
+def product_detail(request, id):
+    # SELECT * FROM Product WHERE id = $id; -- где id - число с url
+    product_object = Product.objects.get(id=id)
+    context = {
+        "product": product_object,
+    }
+    return render(request, 'product_detail.html', context)

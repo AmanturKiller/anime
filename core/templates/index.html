@@ -5,5 +5,8 @@
 
 <h1>Товары</h1>
 {% for product in products %}
-    <div>{{ product.id }}. {{ product.name }} - {{ product.price }} сом</div>
+    <div>{{ product.id }}. 
+        <a href="/product/{{ product.id }}/">{{ product.name }}</a>
+         - {{ product.price }} сом
+    </div>
 {% endfor %}
