@@ -1,4 +1,6 @@
 from django.db import models
+from costumerapp.models import Costumer
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Category(models.Model):
@@ -20,7 +22,21 @@ class Product(models.Model):
         null=True, blank=True,
         verbose_name="Категория",
     )
+    costumer_views = models.ManyToManyField(
+        to=Costumer,
+        blank=True
+    )
     
     def __str__(self):
         return self.name
         
+
+class Profile(models.Model):
+    bio = models.TextField(null=True, blank=True)
+    social_link = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=100)
+    user = models.OneToOneField(
+        to=User,
+        on_delete=models.SET_NULL,
+        null=True, blank=True
+    )
