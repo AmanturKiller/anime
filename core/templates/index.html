@@ -3,6 +3,10 @@
 <a href="{% url 'news-list' %}">Новости</a> |
 <a href="/admin/">Админка</a>
 
+<div>
+    {{ request.user }}
+</div>
+
 <h1>Товары</h1>
 {% for product in products %}
     <div>{{ product.id }}. 

@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse
+from django.contrib.auth.models import User
 from .models import Product
 from costumerapp.models import Costumer
 
@@ -41,3 +42,8 @@ def product_detail(request, id):
         "product": product_object,
     }
     return render(request, 'product_detail.html', context)
+
+def user_cabinet(request, id):
+    user = User.objects.get(id=id)
+    context = {"user": user}
+    return render(request, 'cabinet.html', context)
