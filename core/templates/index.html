@@ -3,9 +3,13 @@
 <a href="{% url 'news-list' %}">Новости</a> |
 <a href="/admin/">Админка</a>
 
-<div>
-    {{ request.user }}
-</div>
+{% if request.user.is_authenticated %}
+    <div>
+        <a href="/user/{{ request.user.id }}/">
+            {{ request.user }}
+        </a>
+    </div>
+{% endif %}
 
 <h1>Товары</h1>
 {% for product in products %}

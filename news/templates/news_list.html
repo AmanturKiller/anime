@@ -5,5 +5,7 @@
 
 <h1>Новости</h1>
 {% for obj in news %}
-    <div>{{ obj.title }}</div>
+    <div>
+        <a href="/new-detail/{{ obj.id }}/">{{ obj.title }}</a>    
+    </div>
 {% endfor %}
