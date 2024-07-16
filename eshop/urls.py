@@ -16,17 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core.views import homepage, product_detail, user_cabinet
+from django.conf import settings  # 1
+from django.conf.urls.static import static  # 2
+from core.views import *
 from costumerapp.views import costumer_view
 from news.views import news_list, new_detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homepage),
+    path('users/', users_list),
     path('user/<int:id>/', user_cabinet, name='user-cabinet'), 
     path('product/<int:id>/', product_detail, name='product-detail'),
     path('costumers/', costumer_view),
     path('news/', news_list, name='news-list'),
     # /new-detail/8/
     path('new-detail/<int:id>/', new_detail, name='new-detail'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # 3
